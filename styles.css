@@ -1,0 +1,554 @@
+/* ============================================
+   GOOD PORK - Carniceria Limpia
+   Paleta: fondo blanco, rojo intenso #c62828
+   ============================================ */
+
+:root {
+    --red: #c62828;
+    --darkRed: #8e0000;
+    --cream: #fafafa;
+    --warm: #f5f0eb;
+    --brown: #5d4037;
+    --light: #ffffff;
+    --border: #e0e0e0;
+    --text: #1a1a1a;
+    --textMuted: #6b6b6b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); opacity: .7; }
+    50% { transform: translateY(8px); opacity: 1; }
+}
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(40px); }
+}
+@keyframes successPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Reveal on scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all .8s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero */
+.hero-bg {
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(198,40,40,.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(142,0,0,.04) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 90%, rgba(198,40,40,.03) 0%, transparent 50%),
+        var(--light);
+}
+
+/* Tarjetas de producto - BORDES VISIBLES */
+.product-card {
+    background: var(--light);
+    border: 2px solid var(--border);
+    border-radius: 1rem;
+    transition: all .4s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.product-card:hover {
+    border-color: var(--red);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(198,40,40,.12);
+}
+
+/* Inputs */
+.form-input {
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    transition: all .3s ease;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(198,40,40,.10);
+    background: var(--light);
+}
+.form-input::placeholder { color: var(--textMuted); }
+
+/* Botones cantidad */
+.qty-btn {
+    background: var(--red);
+    border: none;
+    color: #fff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+.qty-btn:hover {
+    background: var(--darkRed);
+    transform: scale(1.05);
+}
+.qty-btn:active { transform: scale(.9); }
+
+/* Boton primario */
+.btn-primary {
+    background: linear-gradient(135deg, var(--red), var(--darkRed));
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+    transition: left .5s ease;
+}
+.btn-primary:hover::before { left: 100%; }
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(198,40,40,.35);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+.btn-primary:disabled::before { display: none; }
+
+/* Toast */
+.toast { animation: slideRight .4s ease-out forwards; }
+.toast-exit { animation: fadeOut .3s ease-in forwards; }
+
+/* Header scrolled */
+.header-scrolled {
+    background: rgba(255,255,255,.95) !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(0,0,0,.08);
+    border-bottom: 1px solid var(--border);
+}
+
+/* Separador */
+.separator {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(198,40,40,.20), transparent);
+}
+
+/* Feature cards */
+.feature-card {
+    background: var(--light);
+    border: 1.5px solid var(--border);
+    transition: all .3s ease;
+}
+.feature-card:hover {
+    border-color: var(--red);
+    box-shadow: 0 8px 24px rgba(198,40,40,.08);
+}
+
+/* Tabla de pedidos */
+.orders-table { border-collapse: separate; border-spacing: 0; }
+.orders-table th {
+    background: rgba(198,40,40,.08);
+    color: var(--red);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .65rem;
+    letter-spacing: .05em;
+}
+.orders-table td {
+    border-bottom: 1px solid var(--border);
+    font-size: .8rem;
+    color: var(--text);
+}
+.orders-table tr:hover td { background: rgba(198,40,40,.03); }
+
+/* Badges */
+.badge {
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: .65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+.badge-pending {
+    background: rgba(255,193,7,.10);
+    color: #c79100;
+    border: 1px solid rgba(255,193,7,.30);
+}
+.badge-done {
+    background: rgba(76,175,80,.10);
+    color: #2e7d32;
+    border: 1px solid rgba(76,175,80,.30);
+}
+
+/* Spinner */
+.spinner {
+    border: 3px solid rgba(198,40,40,.1);
+    border-top: 3px solid var(--red);
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    animation: spin .8s linear infinite;
+    display: inline-block;
+}
+
+/* Success pop */
+.success-pop { animation: successPop .5s ease-out forwards; }
+
+/* WhatsApp flotante */
+.wa-float {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    width: 54px; height: 54px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,.4);
+    z-index: 50;
+    transition: all .3s ease;
+    cursor: pointer;
+    border: none;
+}
+.wa-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37,211,102,.5);
+}
+
+/* Noise overlay */
+.noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: .015;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Responsive */
+@media(max-width:640px) {
+    .hero-title { font-size: 2.4rem !important; }
+    .orders-table { font-size: .7rem; }
+    .orders-table th, .orders-table td { padding: 5px 3px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* ============================================
+   ESTILOS ADICIONALES - CATÁLOGO DINÁMICO
+   ============================================ */
+
+/* ── Filtros de categoría ── */
+.cat-filter {
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(93, 64, 55, 0.12);
+    color: rgba(93, 64, 55, 0.6);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.cat-filter:hover {
+    border-color: rgba(198, 40, 40, 0.3);
+    color: #c62828;
+    background: rgba(198, 40, 40, 0.05);
+}
+.cat-filter.active {
+    background: #c62828;
+    color: white;
+    border-color: #c62828;
+}
+
+/* ── Tarjeta de producto del catálogo ── */
+.catalog-card {
+    background: white;
+    border: 1px solid rgba(93, 64, 55, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.catalog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(198, 40, 40, 0.08);
+    border-color: rgba(198, 40, 40, 0.15);
+}
+
+/* Contenedor de imagen con aspecto ratio fijo */
+.catalog-card-img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #fafafa;
+}
+.catalog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.catalog-card:hover .catalog-card-img img {
+    transform: scale(1.05);
+}
+
+/* Badge de categoría sobre la imagen */
+.catalog-cat-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    color: #5d4037;
+    border: 1px solid rgba(93, 64, 55, 0.08);
+}
+
+/* ── Separador de categoría en el grid ── */
+.category-header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 8px;
+}
+.category-header span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #8e0000;
+    white-space: nowrap;
+}
+.category-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(198, 40, 40, 0.2), transparent);
+}
+
+/* ── Selector de cantidad por producto (en formulario) ── */
+.qty-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fafafa;
+    border: 1px solid rgba(93, 64, 55, 0.06);
+    transition: border-color 0.2s;
+}
+.qty-row:hover {
+    border-color: rgba(198, 40, 40, 0.15);
+}
+.qty-row.has-qty {
+    border-color: rgba(198, 40, 40, 0.25);
+    background: rgba(198, 40, 40, 0.03);
+}
+
+/* Mini thumbnail en el selector */
+.qty-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: white;
+    border: 1px solid rgba(93, 64, 55, 0.08);
+}
+
+/* Botón preset (×24 / ×12) */
+.preset-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px dashed rgba(198, 40, 40, 0.3);
+    color: #c62828;
+    background: rgba(198, 40, 40, 0.05);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.preset-btn:hover {
+    background: rgba(198, 40, 40, 0.12);
+    border-color: #c62828;
+}
+.preset-btn.active {
+    background: #c62828;
+    color: white;
+    border-style: solid;
+    border-color: #c62828;
+}
+
+/* ── Estadísticas admin ── */
+.stat-card {
+    background: white;
+    border: 1px solid rgba(93, 64, 55, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+}
+.stat-card .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #c62828;
+    line-height: 1.2;
+}
+.stat-card .stat-label {
+    font-size: 11px;
+    color: rgba(93, 64, 55, 0.5);
+    margin-top: 4px;
+}
+
+/* Gráfico de barras CSS */
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 140px;
+    padding: 0 8px;
+}
+.bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+}
+.bar-fill {
+    width: 100%;
+    max-width: 40px;
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(to top, #c62828, #ef5350);
+    transition: height 0.6s ease;
+    min-height: 4px;
+    position: relative;
+}
+.bar-fill.peak {
+    background: linear-gradient(to top, #8e0000, #c62828);
+    box-shadow: 0 0 12px rgba(198, 40, 40, 0.3);
+}
+.bar-fill .bar-count {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 600;
+    color: #5d4037;
+    white-space: nowrap;
+}
+.bar-label {
+    font-size: 10px;
+    color: rgba(93, 64, 55, 0.4);
+    font-weight: 500;
+}
+
+/* ── Detalle de pedido en tabla admin ── */
+.detail-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.detail-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    background: rgba(198, 40, 40, 0.06);
+    color: #5d4037;
+    border: 1px solid rgba(198, 40, 40, 0.1);
+}
+.detail-chip strong {
+    color: #c62828;
+}
+
+/* ── Select de estado en admin ── */
+.status-select {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid rgba(93, 64, 55, 0.15);
+    color: #5d4037;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.15s;
+}
+.status-select:hover {
+    border-color: rgba(198, 40, 40, 0.3);
+}
+.status-select:focus {
+    outline: none;
+    border-color: #c62828;
+    box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.1);
+}
+
+/* Responsive: en mobile las qty-row se apilan parcialmente */
+@media (max-width: 480px) {
+    .qty-row {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .qty-row .qty-thumb {
+        display: none;
+    }
+}
